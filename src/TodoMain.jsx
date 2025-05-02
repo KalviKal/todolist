@@ -3,9 +3,13 @@ import './App.css'
 
 import ItemsList from './ItemsList'
 import AddTodo from './AddTodo'
-//import { practice } from './utils'
+import { practice, asyncPractice } from './utils'
+
 
 function TodoMain() {
+
+  practice()
+  asyncPractice()
   const [count, setCount] = useState(0)
 
   const [items, setItems] = useState([

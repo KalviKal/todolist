@@ -19,4 +19,10 @@ let massiiv4 = [...massiiv3]
 massiiv3[0] = "Tere tulemast"
 
 
-export default practice
+function asyncPractice(){
+    console.log('esimene')
+    setTimeout(() => console.log('teine'))
+    console.log('kolmas')
+}
+
+export {practice, asyncPractice}
