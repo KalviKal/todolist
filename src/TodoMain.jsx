@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 import ItemsList from './ItemsList'
 import AddTodo from './AddTodo'
 import { practice, asyncPractice } from './utils'
-
+import { fetchTodoData, postTodoData } from './utils'
 
 function TodoMain() {
 
@@ -12,7 +12,7 @@ function TodoMain() {
   asyncPractice()
   const [count, setCount] = useState(0)
 
-  const [items, setItems] = useState([
+  /* const [items, setItems] = useState([
     { id: 1, name: 'Õun', idDone: false, unit:'kg' },
     { id: 2, name: 'Banaan', idDone: false, unit:'kg' },
     { id: 3, name: 'Pirn', idDone: false, unit:'tk' },
@@ -24,7 +24,18 @@ function TodoMain() {
     { id: 9, name: 'Sool', idDone: false, unit:'tk' },
     { id: 10, name: 'Pasta',idDone: false, unit:'tk' }
  
-  ])
+  ]) */
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    const fetching = async() => {
+       const newData = await fetchTodoData()
+       console.log(newData)
+       setItems(newData)
+    }
+    fetching()
+   
+  }, [])
 
   const toggleDone = (id) => {
     const newItems = items.map((item) =>{
@@ -45,6 +56,7 @@ function TodoMain() {
       unit: newTodo.unit
     }
     setItems([...items, newItem])
+    postTodoData({name: newItem.name, priority: newItem.unit})
   }
 
   const deleteItem = (id) => {
